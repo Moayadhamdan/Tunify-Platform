@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TunifyPlatform.Data;
 
@@ -11,9 +12,11 @@ using TunifyPlatform.Data;
 namespace TunifyPlatform.Migrations
 {
     [DbContext(typeof(TunifyDbContext))]
-    partial class TunifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240817104801_addedRelationShips")]
+    partial class addedRelationShips
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,22 +48,6 @@ namespace TunifyPlatform.Migrations
                     b.HasIndex("ArtistId");
 
                     b.ToTable("Album");
-
-                    b.HasData(
-                        new
-                        {
-                            AlbumId = 1,
-                            Album_Name = "1989",
-                            ArtistId = 1,
-                            Release_Date = new DateTime(2014, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AlbumId = 2,
-                            Album_Name = "Divide",
-                            ArtistId = 2,
-                            Release_Date = new DateTime(2017, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Artist", b =>
@@ -82,20 +69,6 @@ namespace TunifyPlatform.Migrations
                     b.HasKey("ArtistId");
 
                     b.ToTable("Artist");
-
-                    b.HasData(
-                        new
-                        {
-                            ArtistId = 1,
-                            Bio = "American singer-songwriter, known for narrative songs about her personal life.",
-                            Name = "Taylor Swift"
-                        },
-                        new
-                        {
-                            ArtistId = 2,
-                            Bio = "English singer-songwriter, known for his hit singles and acoustic performances.",
-                            Name = "Ed Sheeran"
-                        });
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Playlist", b =>
@@ -121,36 +94,6 @@ namespace TunifyPlatform.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Playlist");
-
-                    b.HasData(
-                        new
-                        {
-                            PlaylistId = 1,
-                            Created_Date = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Playlist_Name = "Morning Motivation",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            PlaylistId = 2,
-                            Created_Date = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Playlist_Name = "Evening Relaxation",
-                            UserId = 2
-                        },
-                        new
-                        {
-                            PlaylistId = 3,
-                            Created_Date = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Playlist_Name = "Workout Hits",
-                            UserId = 1
-                        },
-                        new
-                        {
-                            PlaylistId = 4,
-                            Created_Date = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Playlist_Name = "Road Trip",
-                            UserId = 2
-                        });
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.PlaylistSongs", b =>
@@ -174,32 +117,6 @@ namespace TunifyPlatform.Migrations
                     b.HasIndex("SongId");
 
                     b.ToTable("PlaylistSongs");
-
-                    b.HasData(
-                        new
-                        {
-                            PlaylistSongsId = 1,
-                            PlaylistId = 1,
-                            SongId = 1
-                        },
-                        new
-                        {
-                            PlaylistSongsId = 2,
-                            PlaylistId = 2,
-                            SongId = 2
-                        },
-                        new
-                        {
-                            PlaylistSongsId = 3,
-                            PlaylistId = 3,
-                            SongId = 3
-                        },
-                        new
-                        {
-                            PlaylistSongsId = 4,
-                            PlaylistId = 4,
-                            SongId = 4
-                        });
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Song", b =>
@@ -234,44 +151,6 @@ namespace TunifyPlatform.Migrations
                     b.HasIndex("ArtistId");
 
                     b.ToTable("Song");
-
-                    b.HasData(
-                        new
-                        {
-                            SongId = 1,
-                            AlbumId = 1,
-                            ArtistId = 1,
-                            Duration = new TimeSpan(0, 0, 3, 30, 0),
-                            Genre = "Pop",
-                            Title = "Blank Space"
-                        },
-                        new
-                        {
-                            SongId = 2,
-                            AlbumId = 2,
-                            ArtistId = 2,
-                            Duration = new TimeSpan(0, 0, 4, 0, 0),
-                            Genre = "Pop",
-                            Title = "Shape of You"
-                        },
-                        new
-                        {
-                            SongId = 3,
-                            AlbumId = 1,
-                            ArtistId = 1,
-                            Duration = new TimeSpan(0, 0, 3, 30, 0),
-                            Genre = "Pop",
-                            Title = "Style"
-                        },
-                        new
-                        {
-                            SongId = 4,
-                            AlbumId = 2,
-                            ArtistId = 2,
-                            Duration = new TimeSpan(0, 0, 4, 0, 0),
-                            Genre = "Rock",
-                            Title = "Castle on the Hill"
-                        });
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Subscription", b =>
@@ -292,20 +171,6 @@ namespace TunifyPlatform.Migrations
                     b.HasKey("SubscriptionId");
 
                     b.ToTable("Subscription");
-
-                    b.HasData(
-                        new
-                        {
-                            SubscriptionId = 1,
-                            Price = 9.9900000000000002,
-                            Subscription_Type = "Basic"
-                        },
-                        new
-                        {
-                            SubscriptionId = 2,
-                            Price = 19.989999999999998,
-                            Subscription_Type = "Premium"
-                        });
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.User", b =>
@@ -335,24 +200,6 @@ namespace TunifyPlatform.Migrations
                     b.HasIndex("SubscriptionId");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Email = "hamadanjo@gmail.com",
-                            Join_Date = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SubscriptionId = 1,
-                            Username = "Moayad"
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            Email = "aya@gmail.com",
-                            Join_Date = new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SubscriptionId = 2,
-                            Username = "Aya"
-                        });
                 });
 
             modelBuilder.Entity("TunifyPlatform.Models.Album", b =>

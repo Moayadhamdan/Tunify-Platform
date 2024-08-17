@@ -6,7 +6,7 @@ Tunify Platform is an Empty .NET Core Web Application to enhance your music expe
 
 ## Tunify ERD Diagram
 
-![Tunify ERD Diagram](TunifyPlatform/Asstes/Tunify.png)
+![Tunify ERD Diagram](TunifyPlatform/Asstes/TunifyERD.png)
 
 ## Overview of Relationships
 
@@ -69,3 +69,19 @@ The Repository Pattern is a design pattern that encapsulates the logic needed to
 In the Tunify Platform, the Repository Pattern has been implemented to manage data access for entities such as Users, Playlists, Songs, and Artists. This has improved the modularity of the application by allowing data operations to be handled in a consistent and centralized manner through repositories.
 
 For each entity (User, Playlist, Song, and Artist), a corresponding repository interface and its implementation were created. The controllers were refactored to interact with these repositories instead of directly with the `DbContext`. This approach has simplified the code in the controllers and made the application more modular and easier to test.
+
+## Navigation and Routing Functionalities
+We enhanced the Tunify Platform with advanced navigation and routing features. These improvements streamline user interactions and ensure a more intuitive experience within the application:
+
+* **Dynamic Routing**: Routes are generated dynamically based on user actions and application state. This allows for seamless transitions between different views and resources.
+* **Parameterized Routes**: Support for parameterized routes, such as playlist IDs and artist names, enables direct access to specific content within the application.
+* **Route Guards**: Implemented route guards to control access to certain areas of the application based on user authentication and roles.
+* **Navigation Service**: Introduced a centralized navigation service to manage routing logic and transitions, ensuring consistency across the application.
+
+### Playlist-Song Relationship
+- Users can add songs to a playlist via the `POST /api/PlayLists/{playlistId}/songs/{songId}` endpoint.
+- Songs associated with a playlist can be retrieved using the `GET /api/playlists/{playlistId}/songs` endpoint.
+
+### Artist-Song Relationship
+- Users can associate songs with an artist via the `POST /api/Artists/{artistId}/songs/{songId}` endpoint.
+- All songs by an artist can be retrieved using the `GET /api/Artists/{artistId}/songs` endpoint.
