@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Data;
 using TunifyPlatform.Models;
 using TunifyPlatform.Repositories.Interfaces;
+using TunifyPlatform.Repositories.Services;
 
 namespace TunifyPlatform.Controllers
 {
@@ -76,6 +77,20 @@ namespace TunifyPlatform.Controllers
 
             await _artistRepository.DeleteArtistAsync(id);
             return NoContent();
+        }
+        // api/Artists/{artistId}/songs/{songId}
+        [HttpPost("{artistId}/songs/{songId}")]
+        public async Task<Song> AddSongToArtist(int artistId, int songId)
+        {
+            var Song = await _artistRepository.AddSongToArtist(artistId, songId);
+            return Song;
+        }
+        // api/Artists/{artistId}/songs
+        [HttpGet("{artistId}/songs")]
+        public async Task<ActionResult<IEnumerable<Song>>> GetAllSongsFromArtist(int artistId)
+        {
+            var Song = await _artistRepository.GetAllSongsFromArtist(artistId);
+            return Song;
         }
     }
 }
