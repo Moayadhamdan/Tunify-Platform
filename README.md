@@ -85,3 +85,19 @@ We enhanced the Tunify Platform with advanced navigation and routing features. T
 ### Artist-Song Relationship
 - Users can associate songs with an artist via the `POST /api/Artists/{artistId}/songs/{songId}` endpoint.
 - All songs by an artist can be retrieved using the `GET /api/Artists/{artistId}/songs` endpoint.
+
+## Swagger UI Integration
+Swagger UI offers a visual interface for interacting with the Tunify Platform's API. It automatically generates and displays the API's documentation, making it easier to explore and test various endpoints.
+
+## How to Access the Swagger UI
+1. **Run the Tunify Platform application** by starting the project in Visual Studio.
+2. **Navigate to the Root URL:**
+   - Open your web browser.
+   - The Swagger UI will be displayed, showing the API documentation.
+
+## Using Swagger UI
+- **Explore API Endpoints:** The Swagger UI lists all available endpoints, allowing you to see the routes, methods, and descriptions.
+- **Test API Functionality:** You can directly test the API by sending requests to endpoints and viewing the responses.
+- **View Request/Response Models:** Detailed information about request parameters and response models is provided, helping you understand how to interact with the API.
+
+This integration enhances the developer experience by providing a centralized, interactive platform for API documentation and testing.
