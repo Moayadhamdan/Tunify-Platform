@@ -63,5 +63,6 @@ namespace TunifyPlatform.Repositories.Services
             var Song = await _context.Song.Where(s => s.ArtistId == artistId).ToListAsync();
             return Song;
         }
+
     }
 }

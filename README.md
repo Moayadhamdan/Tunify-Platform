@@ -101,3 +101,26 @@ Swagger UI offers a visual interface for interacting with the Tunify Platform's 
 - **View Request/Response Models:** Detailed information about request parameters and response models is provided, helping you understand how to interact with the API.
 
 This integration enhances the developer experience by providing a centralized, interactive platform for API documentation and testing.
+
+## Identity Implementation
+
+### Overview
+
+The Tunify Platform integrates ASP.NET Core Identity to manage user authentication and authorization, allowing for secure user registration, login, and logout functionalities. ASP.NET Core Identity is a comprehensive system that provides essential features such as password hashing, user role management, and authentication tokens, ensuring that user data is handled securely.
+
+### How to Use the Registration, Login, and Logout Features
+
+1. **Registration**: 
+   - To create a new user account, the application offers a registration endpoint. Users need to provide a username, email, and a secure password that meets the platform’s complexity requirements. Upon successful registration, the user's details are stored in the database, and the system returns a confirmation response, including the user's unique identifier.
+
+2. **Login**:
+   - Users can log in by submitting their username and password to the login endpoint. The system validates the credentials against the stored data. If the credentials are correct, the system authenticates the user and generates an authentication token or session, allowing the user to access protected resources within the application. The login process secures user sessions, ensuring that sensitive data is protected during transmission.
+
+3. **Logout**:
+   - Logging out of the platform is straightforward. When a user requests to log out, the system invalidates the current session or token, effectively ending the user's authenticated session. This ensures that no further actions can be performed under the user’s identity until they log in again. Logging out is an essential step in maintaining security, especially on shared or public devices.
+
+### Instructions
+
+- **Registration**: Send a POST request to the registration endpoint with the required user details.
+- **Login**: Use the login endpoint to authenticate by sending the username and password. The system will respond with the user's details if the login is successful.
+- **Logout**: Invoke the logout endpoint to end the current session, which will return a confirmation message indicating successful logout.

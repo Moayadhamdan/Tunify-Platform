@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Data;
+using TunifyPlatform.Models;
 using TunifyPlatform.Repositories.Interfaces;
 using TunifyPlatform.Repositories.Services;
 namespace TunifyPlatform
@@ -16,6 +18,13 @@ namespace TunifyPlatform
 
             builder.Services.AddDbContext<TunifyDbContext>(op => op.UseSqlServer(ConnectionStringVar));
 
+
+            // Add Identity Service
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<TunifyDbContext>();
+
+            //builder.Services.AddTransient<IEmployee, EmployeeService>();
+            builder.Services.AddScoped<IAccountRepository, IdentityAccountService>();
 
             // Add services to the container.
             builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -39,7 +48,9 @@ namespace TunifyPlatform
 
             var app = builder.Build();
 
-
+            // call Identity UseAuthentication
+            app.UseAuthentication();
+            //app.UseAuthorization();
 
             // call swagger service
             app.UseSwagger(
