@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Models.DTO;
@@ -27,9 +28,9 @@ namespace TunifyPlatform.Controllers
 
         // login 
         [HttpPost("Login")]
-        public async Task<ActionResult<AccountDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<AccountDto>> Login(string UserName, string Password)
         {
-            var user = await _accountService.UserAuthentication(loginDto.UserName, loginDto.Password);
+            var user = await _accountService.UserAuthentication(UserName, Password);
 
             if (user == null)
             {
@@ -45,6 +46,15 @@ namespace TunifyPlatform.Controllers
         {
             var newLogout = await _accountService.LogOut(username);
             return newLogout;
+        }
+
+
+        // Profile
+        [Authorize(Roles = "Admin")] // only logged in users can have access to the profile
+        [HttpGet("Profile")]
+        public async Task<ActionResult<AccountDto>> Profile()
+        {
+            return await _accountService.GetToken(User);
         }
     }
 }

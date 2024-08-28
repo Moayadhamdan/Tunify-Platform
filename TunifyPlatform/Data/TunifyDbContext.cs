@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Models;
 
@@ -122,7 +123,75 @@ namespace TunifyPlatform.Data
                 new PlaylistSongs { PlaylistSongsId = 4, PlaylistId = 4, SongId = 4 }
             );
 
+            // Seed roles and claims
+            seedRoles(modelBuilder, "Admin", "create", "update", "delete");
+            seedRoles(modelBuilder, "User", "update");
+
+            // Seed the default admin user
+            //seedAdminUser(modelBuilder);
+
         }
+        private void seedRoles(ModelBuilder modelBuilder, string roleName, params string[] permission)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+            };
+
+            // add claims for the users
+            // complete
+            var claims = permission.Select(permission => new IdentityRoleClaim<string>
+            {
+                Id = Guid.NewGuid().GetHashCode(), // Unique identifier
+                RoleId = role.Id,
+                ClaimType = "permission",
+                ClaimValue = permission
+            });
+
+            // Seed the role and its claims
+            modelBuilder.Entity<IdentityRole>().HasData(role);
+            modelBuilder.Entity<IdentityRoleClaim<string>>().HasData(claims);
+
+        }
+        //private void seedAdminUser(ModelBuilder modelBuilder)
+        //{
+        //    var adminUser = new ApplicationUser
+        //    {
+        //        Id = "admin_user_id",
+        //        UserName = "admin",
+        //        NormalizedUserName = "ADMIN",
+        //        Email = "admin@example.com",
+        //        NormalizedEmail = "ADMIN@EXAMPLE.COM",
+        //        EmailConfirmed = true,
+        //        SecurityStamp = Guid.NewGuid().ToString("D"),
+        //        ConcurrencyStamp = Guid.NewGuid().ToString("D"),
+        //    };
+
+        //    // Set password for the admin user
+        //    var passwordHasher = new PasswordHasher<ApplicationUser>();
+        //    adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "AdminPassword123!");
+
+        //    modelBuilder.Entity<ApplicationUser>().HasData(adminUser);
+
+        //    // Assign the admin role to the admin user
+        //    modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+        //    {
+        //        RoleId = "admin",
+        //        UserId = adminUser.Id
+        //    });
+
+        //    // Add any necessary claims to the admin user
+        //    modelBuilder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
+        //    {
+        //        Id = Guid.NewGuid().GetHashCode(),
+        //        UserId = adminUser.Id,
+        //        ClaimType = "permission",
+        //        ClaimValue = "full_access"
+        //    });
+        //}
     }
 
 }
