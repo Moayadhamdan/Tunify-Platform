@@ -125,7 +125,7 @@ The Tunify Platform integrates ASP.NET Core Identity to manage user authenticati
 - **Login**: Use the login endpoint to authenticate by sending the username and password. The system will respond with the user's details if the login is successful.
 - **Logout**: Invoke the logout endpoint to end the current session, which will return a confirmation message indicating successful logout.
 
-# JWT-Based Authentication Setup
+## JWT-Based Authentication Setup
 
 ## Overview
 
