@@ -124,3 +124,52 @@ The Tunify Platform integrates ASP.NET Core Identity to manage user authenticati
 - **Registration**: Send a POST request to the registration endpoint with the required user details.
 - **Login**: Use the login endpoint to authenticate by sending the username and password. The system will respond with the user's details if the login is successful.
 - **Logout**: Invoke the logout endpoint to end the current session, which will return a confirmation message indicating successful logout.
+
+# JWT-Based Authentication Setup
+
+## Overview
+
+JWT (JSON Web Token) is a standard for securely transmitting information between a client and a server. In the Tunify Platform, JWT-based authentication is used to secure API endpoints, ensuring that only authenticated users can access certain resources.
+
+## Setting Up JWT Authentication
+
+### 1. Configure JWT Authentication
+
+- Add JWT authentication services in the `Startup.cs` file by configuring the `JwtBearer` options with the necessary parameters like the issuer, audience, and signing key.
+
+### 2. Generate JWT Tokens
+
+- After successful login, the application generates a JWT token, which the client uses in subsequent requests to access protected resources.
+
+### 3. Token Validation
+
+- Ensure that each request to a protected endpoint includes the JWT token in the `Authorization` header. The server will validate the token to authenticate the user.
+
+## Securing API Endpoints
+
+### 1. Apply Authorization Policies
+
+- Use the `[Authorize]` attribute on controllers or actions to restrict access to authenticated users.
+
+### 2. Role-Based Authorization
+
+- Assign roles to users and use role-based authorization to control access to certain features or resources within the application.
+
+## Managing Roles and Claims
+
+### Roles
+
+- Assign roles to users to group permissions. For example, you can have roles like "Admin," "User," and "Guest."
+
+### Claims
+
+- Claims represent additional user information, such as permissions or preferences. You can add claims to a user's JWT token to further customize their access within the application.
+
+### How to Add Roles and Claims
+
+- **Define Roles**: Use the `RoleManager` service to define new roles and assign them to users.
+- **Add Claims**: Use the `UserManager` service to add claims to a user's identity.
+
+## Conclusion
+
+The Tunify Platform is a robust and secure application designed to enhance the user's music experience while ensuring data security and scalability. With JWT-based authentication, role and claim management, and a structured database, Tunify offers a comprehensive solution for managing and exploring music. This documentation provides a detailed guide to the platform's structure, design patterns, and security features, ensuring developers can easily understand and extend the application.

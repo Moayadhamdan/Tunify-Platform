@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 using TunifyPlatform.Models;
 using TunifyPlatform.Models.DTO;
 using TunifyPlatform.Repositories.Interfaces;
@@ -9,11 +10,13 @@ namespace TunifyPlatform.Repositories.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly JwtTokenService _jwtTokenService;
 
-        public IdentityAccountService(UserManager<ApplicationUser> manager, SignInManager<ApplicationUser> signInManager)
+        public IdentityAccountService(UserManager<ApplicationUser> manager, SignInManager<ApplicationUser> signInManager, JwtTokenService jwtTokenService)
         {
             _userManager = manager;
             _signInManager = signInManager;
+            _jwtTokenService = jwtTokenService;
         }
 
         // register
@@ -25,13 +28,16 @@ namespace TunifyPlatform.Repositories.Services
                 Email = registerDto.Email
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
+            await _userManager.AddToRolesAsync(user, registerDto.Roles);
             if (result.Succeeded)
             {
                 return new AccountDto()
                 {
                     Id = user.Id,
-                    Username = user.UserName
-                };
+                    Username = user.UserName,
+                    Roles = await _userManager.GetRolesAsync(user)
+                
+            };
             }
             return null;
         }
@@ -48,7 +54,9 @@ namespace TunifyPlatform.Repositories.Services
                 return new AccountDto()
                 {
                     Id = user.Id,
-                    Username = user.UserName
+                    Username = user.UserName,
+                    Token = await _jwtTokenService.GenerateToken(user, System.TimeSpan.FromMinutes(3)),
+                    Roles = await _userManager.GetRolesAsync(user)
                 };
             }
 
@@ -75,6 +83,22 @@ namespace TunifyPlatform.Repositories.Services
             };
 
             return result;
+        }
+
+        public async Task<AccountDto> GetToken(ClaimsPrincipal claimsPrincipal)
+        {
+            var newToken = await _userManager.GetUserAsync(claimsPrincipal);
+            if (newToken == null)
+            {
+                throw new InvalidOperationException("Token Is Not Exist!");
+            }
+            return new AccountDto()
+            {
+                Id = newToken.Id,
+                Username = newToken.UserName,
+                Token = await _jwtTokenService.GenerateToken(newToken, System.TimeSpan.FromMinutes(3)), // just for development purposes
+                Roles = await _userManager.GetRolesAsync(newToken)
+            };
         }
     }
 }
