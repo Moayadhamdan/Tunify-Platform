@@ -135,7 +135,7 @@ JWT (JSON Web Token) is a standard for securely transmitting information between
 
 ### 1. Configure JWT Authentication
 
-- Add JWT authentication services in the `Startup.cs` file by configuring the `JwtBearer` options with the necessary parameters like the issuer, audience, and signing key.
+- Add JWT authentication services in the `Program.cs` file by configuring the `JwtBearer` options with the necessary parameters like the issuer, audience, and signing key.
 
 ### 2. Generate JWT Tokens
 
@@ -167,8 +167,8 @@ JWT (JSON Web Token) is a standard for securely transmitting information between
 
 ### How to Add Roles and Claims
 
-- **Define Roles**: Use the `RoleManager` service to define new roles and assign them to users.
-- **Add Claims**: Use the `UserManager` service to add claims to a user's identity.
+- **Define Roles**: Use the `seedRoles` method to define new roles and assign them to users.
+- **Add Claims**: Use the `seedRoles` method to add claims to a user's identity.
 
 ## Conclusion
 
