@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TunifyPlatform.Models;
+using TunifyPlatform.Models.DTO;
 
 namespace TunifyPlatform.Repositories.Interfaces
 {
@@ -8,7 +9,7 @@ namespace TunifyPlatform.Repositories.Interfaces
     {
         Task<IEnumerable<Song>> GetAllSongsAsync();
         Task<Song> GetSongByIdAsync(int id);
-        Task AddSongAsync(Song song);
+        Task AddSongAsync(SongDto songdto);
         Task UpdateSongAsync(Song song);
         Task DeleteSongAsync(int id);
     }

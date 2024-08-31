@@ -50,7 +50,9 @@ namespace TunifyPlatform.Controllers
 
 
         // Profile
-        [Authorize(Roles = "Admin")] // only logged in users can have access to the profile
+
+        [Authorize(Roles = "Admin", Policy = "full_access")] // only logged in users can have access to the profile
+        //[Authorize(Policy = "update")]
         [HttpGet("Profile")]
         public async Task<ActionResult<AccountDto>> Profile()
         {
