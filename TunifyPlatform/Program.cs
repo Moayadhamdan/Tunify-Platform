@@ -55,12 +55,12 @@ namespace TunifyPlatform
             // Add Policy Authorization
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("RequireFullAccess", policy =>
-                    policy.RequireClaim("permission", "full_access"));
-                options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User"));
-                options.AddPolicy("RequireUpdatePermission", policy =>
-                    policy.RequireClaim("permission", "update"));
+                //options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("full_access", policy =>
+                    policy.RequireClaim("ClaimsAccess", "full_access"));
+                //options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User"));
+                options.AddPolicy("update", policy =>
+                    policy.RequireClaim("ClaimsAccess", "update"));
             });
 
 

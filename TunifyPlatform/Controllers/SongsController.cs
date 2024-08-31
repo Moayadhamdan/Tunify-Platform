@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Data;
 using TunifyPlatform.Models;
+using TunifyPlatform.Models.DTO;
 using TunifyPlatform.Repositories.Interfaces;
 
 namespace TunifyPlatform.Controllers
@@ -44,7 +45,7 @@ namespace TunifyPlatform.Controllers
 
         // PUT: api/Songs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Policy = "RequireUpdatePermission")]
+        [Authorize(Policy = "full_access")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSong(int id, Song song)
         {
@@ -60,10 +61,10 @@ namespace TunifyPlatform.Controllers
         // POST: api/Songs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Song>> AddSong(Song song)
+        public async Task<ActionResult<Song>> AddSong(SongDto songdto)
         {
-            await _songRepository.AddSongAsync(song);
-            return CreatedAtAction(nameof(GetSongById), new { id = song.SongId }, song);
+            await _songRepository.AddSongAsync(songdto);
+            return CreatedAtAction(nameof(GetSongById), new { id = songdto.SongId }, songdto);
         }
 
         // DELETE: api/Songs/5

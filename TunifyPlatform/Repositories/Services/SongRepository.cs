@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TunifyPlatform.Data;
 using TunifyPlatform.Models;
+using TunifyPlatform.Models.DTO;
 using TunifyPlatform.Repositories.Interfaces;
 
 namespace TunifyPlatform.Repositories.Services
@@ -26,8 +27,17 @@ namespace TunifyPlatform.Repositories.Services
             return await _context.Song.FindAsync(id);
         }
 
-        public async Task AddSongAsync(Song song)
+        public async Task AddSongAsync(SongDto songdto)
         {
+            var song = new Song
+            {
+                SongId = songdto.SongId,
+                Title = songdto.Title,
+                ArtistId = songdto.ArtistId,
+                AlbumId = songdto.AlbumId,
+                Duration = songdto.Duration,
+                Genre = songdto.Genre
+            };
             await _context.Song.AddAsync(song);
             await _context.SaveChangesAsync();
         }

@@ -124,7 +124,7 @@ namespace TunifyPlatform.Data
             );
 
             // Seed roles and claims
-            seedRoles(modelBuilder, "Admin", "create", "update", "delete");
+            seedRoles(modelBuilder, "Admin", "full_access");
             seedRoles(modelBuilder, "User", "update");
 
             // Seed the default admin user
@@ -147,7 +147,7 @@ namespace TunifyPlatform.Data
             {
                 Id = Guid.NewGuid().GetHashCode(), // Unique identifier
                 RoleId = role.Id,
-                ClaimType = "permission",
+                ClaimType = "ClaimsAccess",
                 ClaimValue = permission
             });
 
